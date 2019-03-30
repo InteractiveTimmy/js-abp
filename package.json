@@ -6,7 +6,9 @@
   "types": "dist/js-abp.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "start": "node index.js",
+    "typescript": "tsc",
+    "rollup": "rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "rollup": "^1.7.4",
     "typescript": "^3.3.4000"
   }
 }

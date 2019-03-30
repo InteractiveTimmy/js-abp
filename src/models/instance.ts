@@ -1,34 +1,26 @@
-// external dependencies
-import Express, { Application } from 'express';
-import http from 'http';
-
 // internal dependencies
-import Entity from './entity';
+import { Structure } from './structure';
+import { DataMiddleware } from './data-middleware';
+import { InterfaceMiddleware } from './interface-middleware';
 
-class Instance {
-  protected wsc: Application
-  protected wsi: http.Server
+export class Instance<DM, IM> {
+  protected dataMiddleware: DataMiddleware<DM>
+  protected instanceMiddleware: InterfaceMiddleware<IM>
+  protected readonly structures: Structure[] = []
 
-  public constructor() {
-    this.wsc = Express();
-    this.wsi = this.wsc.listen(8080);
+  public constructor(dataMiddleware: DataMiddleware<DM>, instanceMiddleware: InterfaceMiddleware<IM>) {
+    this.dataMiddleware = dataMiddleware;
+    this.instanceMiddleware = instanceMiddleware;
   }
 
-  public start(): Instance {
-    return this;
-  }
+  public load(...structures: Structure[]): Instance<DM, IM> {
+    this.dataMiddleware.load(...structures);
+    // this.instanceMiddleware.load(...structures);
 
-  public stop(): Instance {
-    return this;
-  }
-
-  public loadEntity(...entities: Entity[]): Instance {
-    entities.forEach((entity) => {
-
+    structures.forEach((structure) => {
+      this.structures.push(structure);
     });
 
     return this;
   }
 }
-
-export default Instance;

@@ -1,3 +1,4 @@
-import * as models from './models';
+import * as middleware from './middleware/index';
 
-export { models };
+export * from './models/index';
+export { middleware };

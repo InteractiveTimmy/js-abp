@@ -1,4 +1,5 @@
 export default {
+	external: ['express'],
 	input: 'dist/index.js',
 	output: [
 		{

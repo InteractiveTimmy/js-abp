@@ -2,6 +2,25 @@ const JSABP = require('./build/js-abp');
 
 // create instance
 const myInstance = new JSABP.Instance(
+  new JSABP.middleware.data.Instance(),
+  new JSABP.middleware.connect.ExpressConnector({ port: 8080 }),
+);
+
+// prototype structures
+myStructures = [
+  new JSABP.Structure('endpoint1', 'a', 'b'),
+  new JSABP.Structure('endpoint2', 'a', 'b', 'c'),  
+  new JSABP.Structure('endpoint3', 'a', 'b', 'c', 'd'),
+];
+
+myInstance.load(...myStructures);
+
+myInstance.connectMiddleware.start();
+/*
+const JSABP = require('./build/js-abp');
+
+// create instance
+const myInstance = new JSABP.Instance(
   new JSABP.middleware.data.Instance()
 );
 
@@ -60,4 +79,22 @@ getPayload.setInput({
 let myGet = myInstance.dataMiddleware.read(getPayload).output;
 console.log( myGet.length );
 
+console.log(myGet[0]);
 
+const updatePayload = new JSABP.Payload('update', 'endpoint1', myGet[0].id, 'yes');
+updatePayload.setInput({
+  a: '10',
+});
+
+let myUpdate = myInstance.dataMiddleware.update(updatePayload).output;
+console.log( myUpdate );
+
+const removePayload = new JSABP.Payload('remove', 'endpoint1', myGet[0].id, 'yes');
+
+// let myRemove = myInstance.dataMiddleware.remove(removePayload).output;
+// console.log( myRemove );
+
+const readPayload = new JSABP.Payload('read', 'endpoint1', myGet[0].id, 'yes');
+const myRead = myInstance.dataMiddleware.read(readPayload).output;
+console.log(myRead);
+*/

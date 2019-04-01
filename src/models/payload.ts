@@ -1,4 +1,5 @@
 export class Payload {
+  public id: string
   public type: 'create' | 'read' | 'update' | 'remove'
   public dataset: string
   public identifier: string | void
@@ -12,11 +13,13 @@ export class Payload {
     dataset: string,
     identifier: string | void,
     authorization: string,
+    id: string,
   ) {
     this.type = type;
     this.dataset = dataset;
     this.identifier = identifier;
     this.authorization = authorization;
+    this.id = id;
   }
 
   public setInput(input: { [index: string]: string }): Payload {

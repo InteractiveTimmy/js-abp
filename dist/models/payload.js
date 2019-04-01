@@ -1,11 +1,12 @@
 export class Payload {
-    constructor(type, dataset, identifier, authorization) {
+    constructor(type, dataset, identifier, authorization, id) {
         this.input = {};
         this.output = {};
         this.type = type;
         this.dataset = dataset;
         this.identifier = identifier;
         this.authorization = authorization;
+        this.id = id;
     }
     setInput(input) {
         this.input = input || {};

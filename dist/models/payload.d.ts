@@ -1,4 +1,5 @@
 export declare class Payload {
+    id: string;
     type: 'create' | 'read' | 'update' | 'remove';
     dataset: string;
     identifier: string | void;
@@ -14,7 +15,7 @@ export declare class Payload {
     } | {
         [index: string]: string;
     }[];
-    constructor(type: 'create' | 'read' | 'update' | 'remove', dataset: string, identifier: string | void, authorization: string);
+    constructor(type: 'create' | 'read' | 'update' | 'remove', dataset: string, identifier: string | void, authorization: string, id: string);
     setInput(input: {
         [index: string]: string;
     }): Payload;

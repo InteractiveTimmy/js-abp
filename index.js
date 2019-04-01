@@ -64,6 +64,9 @@ myStructures[2].loadValidator('ep2id', (value) => {
   }
 });
 
+myStructures[1].clearValidators();
+myStructures[2].clearValidators();
+
 myInstance.load(...myStructures);
 
 myInstance.connectMiddleware.start();

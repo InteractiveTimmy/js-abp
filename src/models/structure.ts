@@ -6,10 +6,10 @@ export class Structure {
     this.name = name;
 
     indexes.forEach((index) => {
-      this.interface[index] = [() => true];
+      this.interface[index] = [(value: string) => true];
     });
 
-    this.interface.id = [() => false];
+    this.interface.id = [() => true];
   }
 
   public validate(index: string, value: string): boolean {

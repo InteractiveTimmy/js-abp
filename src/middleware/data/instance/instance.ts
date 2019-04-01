@@ -30,10 +30,9 @@ export class Instance implements DataMiddleware<Instance> {
     const myStructure = this.structures.find(structure => structure.name === dataset);
 
     const canCreate = Object.keys(myStructure.interface).every(
-      structureKey => Object.keys(input).includes(structureKey)
-        || !myStructure.interface[structureKey].every(
-          interfaceValidator => interfaceValidator(input[structureKey]),
-        ),
+      structureKey => myStructure.interface[structureKey].every(
+        interfaceValidator => interfaceValidator(input[structureKey]),
+      ),
     );
 
     const myItem: Entry = {};

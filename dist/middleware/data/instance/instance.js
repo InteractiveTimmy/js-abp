@@ -15,8 +15,7 @@ export class Instance {
         const { dataset, input } = payload;
         const myDataset = this.database[dataset];
         const myStructure = this.structures.find(structure => structure.name === dataset);
-        const canCreate = Object.keys(myStructure.interface).every(structureKey => Object.keys(input).includes(structureKey)
-            || !myStructure.interface[structureKey].every(interfaceValidator => interfaceValidator(input[structureKey])));
+        const canCreate = Object.keys(myStructure.interface).every(structureKey => myStructure.interface[structureKey].every(interfaceValidator => interfaceValidator(input[structureKey])));
         const myItem = {};
         if (canCreate) {
             Object.keys(myStructure.interface).forEach((structureKey) => {

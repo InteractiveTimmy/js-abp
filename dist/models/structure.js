@@ -3,9 +3,9 @@ export class Structure {
         this.interface = {};
         this.name = name;
         indexes.forEach((index) => {
-            this.interface[index] = [() => true];
+            this.interface[index] = [(value) => true];
         });
-        this.interface.id = [() => false];
+        this.interface.id = [() => true];
     }
     validate(index, value) {
         return this.interface[index].every(validator => validator(value));

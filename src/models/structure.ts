@@ -6,7 +6,12 @@ export class Structure {
     this.name = name;
 
     indexes.forEach((index) => {
-      this.interface[index] = [(value: string) => true];
+      this.interface[index] = [(value: string) => {
+        if (value) {
+          return true;
+        }
+        return false;
+      }];
     });
 
     this.interface.id = [() => true];

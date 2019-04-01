@@ -131,7 +131,14 @@ export class ExpressConnector implements ConnectMiddleware<ExpressConnector> {
       timestamp: new Date().toISOString(),
     };
 
-    console.log(`${responseObj.timestamp} [${payload.type.toUpperCase()}/${payload.id}/${responseObj.uuid}] - ${JSON.stringify(responseObj.data)}`);
+    // eslint-disable-next-line no-console
+    console.log(
+      `
+      ${responseObj.timestamp} 
+      [${payload.type.toUpperCase()}/${payload.id}/${responseObj.uuid}] - 
+      ${JSON.stringify(responseObj.data)}
+      `,
+    );
 
     res.send(responseObj);
 

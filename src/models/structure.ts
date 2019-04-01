@@ -29,7 +29,7 @@ export class Structure {
 
   public clearValidators(): Structure {
     Object.keys(this.interface).forEach((item) => {
-      this.interface[item] = [() => true];
+      this.interface[item] = [this.interface[item][0]];
     });
 
     return this;

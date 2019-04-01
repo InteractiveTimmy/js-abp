@@ -10,13 +10,47 @@ const myInstance = new JSABP.Instance(
 myStructures = [
   new JSABP.Structure('endpoint1', 'a', 'b'),
   new JSABP.Structure('endpoint2', 'ep1id', 'a'),  
-  new JSABP.Structure('endpoint3', 'ep2id', 'a', 'b', 'c'),
+  new JSABP.Structure('endpoint3', 'ep1id', 'ep2id', 'a', 'b', 'c'),
 ];
 
 myStructures[1].loadValidator('ep1id', (value) => {
   const payload = new JSABP.Payload(
     'read',
     'endpoint1',
+    value,
+    'yes',
+    null,
+  );
+
+  const myOutput = myInstance.dataMiddleware.read(payload).output;
+  if (Object.keys(myOutput).length !== 0) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+myStructures[2].loadValidator('ep1id', (value) => {
+  const payload = new JSABP.Payload(
+    'read',
+    'endpoint1',
+    value,
+    'yes',
+    null,
+  );
+
+  const myOutput = myInstance.dataMiddleware.read(payload).output;
+  if (Object.keys(myOutput).length !== 0) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+myStructures[2].loadValidator('ep2id', (value) => {
+  const payload = new JSABP.Payload(
+    'read',
+    'endpoint2',
     value,
     'yes',
     null,

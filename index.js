@@ -24,7 +24,7 @@ structureEPB.loadValidator('epaid', new JSABP.validators.ForeignKey(
 ));
 
 // endpoint c
-const structureEPC = new JSABP.Structure('epb', 'epaid', 'epbid', 'a', 'b', 'c');
+const structureEPC = new JSABP.Structure('epc', 'epaid', 'epbid', 'a', 'b', 'c');
 
 structureEPC.loadValidator('epaid', new JSABP.validators.ForeignKey(
   dataMiddleware,

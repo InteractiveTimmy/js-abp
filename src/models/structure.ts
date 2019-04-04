@@ -1,27 +1,25 @@
+import { Validator } from './validator';
+import { Unset } from '../validators/index';
+
 export class Structure {
   public name: string
-  public interface: { [index: string]: [(value: string) => boolean] } = {}
+  public interface: { [index: string]: Validator[] } = {}
 
   public constructor(name: string, ...indexes: string[]) {
     this.name = name;
 
     indexes.forEach((index) => {
-      this.interface[index] = [(value: string) => {
-        if (value) {
-          return true;
-        }
-        return false;
-      }];
+      this.interface[index] = [new Validator()];
     });
 
-    this.interface.id = [() => true];
+    this.interface.id = [new Unset()];
   }
 
   public validate(index: string, value: string): boolean {
-    return this.interface[index].every(validator => validator(value));
+    return this.interface[index].every(validator => validator.validate(value));
   }
 
-  public loadValidator(index: string, validator: (value: string) => boolean): Structure {
+  public loadValidator(index: string, validator: Validator): Structure {
     this.interface[index].push(validator);
 
     return this;

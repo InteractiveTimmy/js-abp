@@ -1,2 +1,3 @@
-declare function Validator(input: string): boolean;
-export default Validator;
+export declare class Validator {
+    validate(value: string): boolean;
+}

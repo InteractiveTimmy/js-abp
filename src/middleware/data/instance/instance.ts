@@ -31,7 +31,7 @@ export class Instance implements DataMiddleware<Instance> {
 
     const canCreate = Object.keys(myStructure.interface).every(
       structureKey => myStructure.interface[structureKey].every(
-        interfaceValidator => interfaceValidator(input[structureKey]),
+        interfaceValidator => interfaceValidator.validate(input[structureKey]),
       ),
     );
 

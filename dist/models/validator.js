@@ -1,4 +1,8 @@
-function Validator(input) {
-    return input === input;
+export class Validator {
+    validate(value) {
+        if (value) {
+            return true;
+        }
+        return false;
+    }
 }
-export default Validator;

@@ -2,6 +2,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    jest: true,
   },
   extends: [
     'airbnb-base',
@@ -21,9 +22,9 @@ module.exports = {
     'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
     'import/prefer-default-export': 'off',
     'lines-between-class-members': 'off',
-    "indent": "off",
-    'max-len': ["error", { "code": 120 }],
-    "@typescript-eslint/indent": ["error", 2]
+    'indent': 'off',
+    'max-len': ['error', { 'code': 120 }],
+    '@typescript-eslint/indent': ['error', 2]
   },
   settings: {
     'import/resolver': {

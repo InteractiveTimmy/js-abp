@@ -32,7 +32,7 @@ export class ForeignKey<DM> extends Validator {
 
     const { output } = dm.read(payload);
 
-    if (output.length === 1) {
+    if (output.get().data.length === 1) {
       return true;
     }
     return false;

@@ -46,9 +46,9 @@ export class Instance implements DataMiddleware<Instance> {
 
       myDataset.push(myItem);
 
-      payload.setOutput(myItem);
+      payload.output.set(myItem);
     } else {
-      payload.setOutput({});
+      payload.output.set({});
     }
 
     return payload;
@@ -60,9 +60,9 @@ export class Instance implements DataMiddleware<Instance> {
     const myDataset = this.database[dataset];
 
     if (identifier) {
-      payload.setOutput(myDataset.find(item => item.id === identifier) || {});
+      payload.output.set(myDataset.find(item => item.id === identifier) || {});
     } else if (Object.keys(input).length > 0) {
-      payload.setOutput(
+      payload.output.set(
         myDataset.filter(
           item => Object.keys(input).every(
             inputKey => item[inputKey] === input[inputKey],
@@ -70,7 +70,7 @@ export class Instance implements DataMiddleware<Instance> {
         ),
       );
     } else {
-      payload.setOutput([...myDataset]);
+      payload.output.set([...myDataset]);
     }
 
     return payload;
@@ -93,9 +93,9 @@ export class Instance implements DataMiddleware<Instance> {
         }
       });
 
-      payload.setOutput(myItem);
+      payload.output.set(myItem);
     } else {
-      payload.setOutput({});
+      payload.output.set({});
     }
 
     return payload;
@@ -112,7 +112,7 @@ export class Instance implements DataMiddleware<Instance> {
       myDataset.splice(myDataset.indexOf(myItem), 1);
     }
 
-    payload.setOutput({});
+    payload.output.set({});
 
     return payload;
   }

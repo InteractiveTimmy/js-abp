@@ -125,11 +125,14 @@ export class ExpressConnector implements ConnectMiddleware<ExpressConnector> {
   public send(payload: Payload): void {
     const res = this.responses[payload.id];
 
+    const responseObj = payload.output.get();
+    /*
     const responseObj = {
       data: payload.output,
       uuid: uuid(),
       timestamp: new Date().toISOString(),
     };
+
 
     // eslint-disable-next-line no-console
     console.log(
@@ -139,6 +142,7 @@ ${responseObj.timestamp} \
 ${JSON.stringify(responseObj.data)}\
 `,
     );
+    */
 
     res.send(responseObj);
 

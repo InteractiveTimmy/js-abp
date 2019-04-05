@@ -1,3 +1,4 @@
+import { Message } from './message';
 export declare class Payload {
     id: string;
     type: 'create' | 'read' | 'update' | 'remove';
@@ -10,11 +11,7 @@ export declare class Payload {
     input: {
         [index: string]: string;
     };
-    output: {
-        [index: string]: string;
-    } | {
-        [index: string]: string;
-    }[];
+    output: Message;
     constructor(type: 'create' | 'read' | 'update' | 'remove', dataset: string, identifier: string | void, authorization: string, id: string);
     setInput(input: {
         [index: string]: string;
@@ -23,5 +20,5 @@ export declare class Payload {
         [index: string]: string;
     } | {
         [index: string]: string;
-    }[]): Payload;
+    }[] | string, reason?: string): Payload;
 }

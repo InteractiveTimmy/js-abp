@@ -68,16 +68,7 @@ export class ExpressConnector {
     }
     send(payload) {
         const res = this.responses[payload.id];
-        const responseObj = {
-            data: payload.output,
-            uuid: uuid(),
-            timestamp: new Date().toISOString(),
-        };
-        console.log(`\
-${responseObj.timestamp} \
-[${payload.type.toUpperCase()}/${payload.id}/${responseObj.uuid}] - \
-${JSON.stringify(responseObj.data)}\
-`);
+        const responseObj = payload.output.get();
         res.send(responseObj);
         delete this.responses[payload.id];
     }

@@ -17,6 +17,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   rules: {
     'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
@@ -24,7 +25,7 @@ module.exports = {
     'lines-between-class-members': 'off',
     'indent': 'off',
     'max-len': ['error', { 'code': 120 }],
-    '@typescript-eslint/indent': ['error', 2]
+    '@typescript-eslint/indent': ['error', 2],
   },
   settings: {
     'import/resolver': {

@@ -1,5 +1,36 @@
 const JSABP = require('./build/js-abp');
 
+const dm = new JSABP.middleware.Memory;
+const instance = new JSABP.Instance(dm);
+
+const structureA = new JSABP.Structure('structurea', 'a', 'b', 'c');
+
+instance.loadStructure(structureA);
+
+class Middle extends JSABP.Middleware {
+  constructor(type, parent) {
+    super(type, parent);
+  }
+
+  run() {
+    this.payload = new JSABP.Payload('yes', 'create', 'structurea', { id: 'a', a: '1', b: '2', c: '3' }, this);
+    this.payload.output.set({...this.payload.input});
+    this.payload.setState('received');
+    instance.handle(this.payload);
+  }
+
+  handle(payload) {
+    payload.setState('sent');
+    this.parent.handle(payload);
+  }
+}
+
+const mw = new Middle('connect');
+instance.loadMiddleware(mw).then(() => {
+  mw.run();
+});
+
+/*
 // initialize middleware
 const dataMiddleware = new JSABP.middleware.data.Instance();
 const connectMiddleware = new JSABP.middleware.connect.ExpressConnector({ port: 8080 });
@@ -49,3 +80,4 @@ instance.load(...structures);
 
 // start connector
 instance.connectMiddleware.start();
+*/

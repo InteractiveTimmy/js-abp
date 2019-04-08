@@ -1,8 +1,12 @@
 export class Validator {
+    constructor(truthy = true) {
+        this.truthy = truthy;
+    }
     validate(value) {
+        const { truthy } = this;
         if (value) {
-            return true;
+            return truthy;
         }
-        return false;
+        return !truthy;
     }
 }

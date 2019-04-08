@@ -1,11 +1,11 @@
 import { Validator } from './validator';
 export declare class Structure {
-    name: string;
-    interface: {
+    dataset: string;
+    validators: {
         [index: string]: Validator[];
     };
-    constructor(name: string, ...indexes: string[]);
-    validate(index: string, value: string): boolean;
-    loadValidator(index: string, validator: Validator): Structure;
-    clearValidators(): Structure;
+    constructor(dataset: string, ...keys: string[]);
+    validate(key: string, value: string): boolean;
+    loadValidator(key: string, validator: Validator): Structure;
+    clearValidators(...validators: Validator[]): Structure;
 }

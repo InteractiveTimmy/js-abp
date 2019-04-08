@@ -1,24 +1,18 @@
+import { Method, State, Data } from './types';
 import { Message } from './message';
+import { Middleware } from './middleware';
 export declare class Payload {
-    id: string;
-    type: 'create' | 'read' | 'update' | 'remove';
-    dataset: string;
-    identifier: string | void;
-    filter: {
-        [index: string]: string;
-    };
-    authorization: string;
-    input: {
-        [index: string]: string;
-    };
-    output: Message;
-    constructor(type: 'create' | 'read' | 'update' | 'remove', dataset: string, identifier: string | void, authorization: string, id: string);
-    setInput(input: {
-        [index: string]: string;
-    }): Payload;
-    setOutput(output: {
-        [index: string]: string;
-    } | {
-        [index: string]: string;
-    }[] | string, reason?: string): Payload;
+    readonly parent: Middleware;
+    readonly sid: string;
+    readonly cid: string;
+    readonly dataset: string;
+    readonly method: Method;
+    readonly authorization: string;
+    readonly input: Data;
+    readonly output: Message;
+    success: boolean;
+    state: State;
+    constructor(authorization: string, method: Method, dataset: string, input: Data, parent: Middleware);
+    setState(state: State): void;
+    setSuccess(success: boolean): void;
 }

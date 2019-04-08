@@ -1,53 +1,39 @@
-import { uuid } from '../utils/index';
 export class Message {
-    constructor(value, type, resolution) {
-        this.value = value;
-        this.type = type || 'system';
-        this.resolution = resolution;
+    constructor(parent) {
+        this.parent = parent;
         this.timestamp = new Date().toISOString();
-        this.sid = uuid();
-        this.cid = uuid();
-        if (resolution) {
-            this.isError = true;
-        }
-        else {
-            this.isError = false;
-        }
+        this.value = {};
     }
-    set(value, type, resolution) {
-        this.type = type || 'system';
-        this.value = value;
-        this.resolution = resolution;
-        if (resolution) {
-            this.isError = true;
-        }
-        else {
-            this.isError = false;
-        }
+    setParent(parent) {
+        this.parent = parent;
         return this;
     }
-    log() {
-        const { value, resolution, timestamp, sid, cid, type, isError, } = this;
-        const sError = isError ? 'ERROR - ' : '';
-        const sTimestamp = `${timestamp} `;
-        const sId = `[${type.toUpperCase()}/${sid}/${cid}] `;
-        const sOutput = (isError)
-            ? JSON.stringify({ reason: value, resolution })
-            : value;
-        process.stdout.write(`${sError}${sTimestamp}${sId}${sOutput}\n`);
+    set(value) {
+        this.value = value;
         return this;
     }
     get() {
-        const { value, resolution, timestamp, cid, isError, } = this;
-        const data = (isError)
-            ? { reason: value, resolution }
-            : value;
-        const output = {
-            uuid: cid,
+        const { parent, timestamp, value } = this;
+        const cid = parent ? parent.cid : '';
+        const success = parent ? parent.success : false;
+        return {
+            cid,
             timestamp,
-            data,
-            error: isError,
+            data: value,
+            success,
         };
-        return output;
+    }
+    log() {
+        const { parent, timestamp, value } = this;
+        if (!parent) {
+            return this;
+        }
+        const { sid, cid, state, success, method, } = parent;
+        const sError = (!success) ? 'ERROR' : 'SUCCESS';
+        const sTimestamp = `${timestamp} `;
+        const sId = `[${sError}/${state.toUpperCase()}/${method.toUpperCase()}/${sid}/${cid}] `;
+        const sValue = JSON.stringify(value);
+        process.stdout.write(`${sTimestamp}${sId}${sValue}\n`);
+        return this;
     }
 }

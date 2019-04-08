@@ -1,3 +1,5 @@
 export declare class Validator {
-    validate(value: string): boolean;
+    private truthy;
+    constructor(truthy?: boolean);
+    validate(value?: string): boolean;
 }

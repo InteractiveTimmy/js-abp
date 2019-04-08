@@ -14,7 +14,7 @@ export class ForeignKey extends Validator {
         input[foreignKey] = value;
         payload.setInput(Object.assign({}, input));
         const { output } = dm.read(payload);
-        if (output.length === 1) {
+        if (output.get().data.length === 1) {
             return true;
         }
         return false;

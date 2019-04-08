@@ -1,20 +1,22 @@
+import { uuid } from '../utils/index';
 import { Message } from './message';
 export class Payload {
-    constructor(type, dataset, identifier, authorization, id) {
-        this.input = {};
-        this.type = type;
-        this.dataset = dataset;
-        this.identifier = identifier;
+    constructor(authorization, method, dataset, input, parent) {
+        this.success = true;
+        this.state = 'new';
         this.authorization = authorization;
-        this.id = id;
-        this.output = new Message('');
+        this.method = method;
+        this.dataset = dataset;
+        this.input = input;
+        this.parent = parent;
+        this.sid = uuid();
+        this.cid = uuid();
+        this.output = new Message(this);
     }
-    setInput(input) {
-        this.input = input || {};
-        return this;
+    setState(state) {
+        this.state = state;
     }
-    setOutput(output, reason) {
-        this.output.set(output, reason);
-        return this;
+    setSuccess(success) {
+        this.success = success;
     }
 }

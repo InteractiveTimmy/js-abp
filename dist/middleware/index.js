@@ -1,3 +1,2 @@
-import * as data from './data/index';
-import * as connect from './connect/index';
-export { data, connect };
+export { Reflect } from './reflect/reflect';
+export { Memory } from './memory/memory';

@@ -1,25 +1,39 @@
 import { Validator } from './validator';
-import { Unset } from '../validators/index';
 export class Structure {
-    constructor(name, ...indexes) {
-        this.interface = {};
-        this.name = name;
-        indexes.forEach((index) => {
-            this.interface[index] = [new Validator()];
+    constructor(dataset, ...keys) {
+        this.validators = {};
+        this.dataset = dataset;
+        keys.forEach((key) => {
+            this.validators[key] = [new Validator()];
         });
-        this.interface.id = [new Unset()];
+        if (!keys.includes('id')) {
+            this.validators.id = [new Validator(false)];
+        }
     }
-    validate(index, value) {
-        return this.interface[index].every(validator => validator.validate(value));
+    validate(key, value) {
+        return this.validators[key].every(validator => validator.validate(value));
     }
-    loadValidator(index, validator) {
-        this.interface[index].push(validator);
+    loadValidator(key, validator) {
+        if (!this.validators[key].includes(validator)) {
+            this.validators[key].push(validator);
+        }
         return this;
     }
-    clearValidators() {
-        Object.keys(this.interface).forEach((item) => {
-            this.interface[item] = [this.interface[item][0]];
-        });
+    clearValidators(...validators) {
+        if (validators.length === 0) {
+            Object.keys(this.validators).forEach((key) => {
+                this.validators[key] = [this.validators[key][0]];
+            });
+        }
+        else {
+            Object.keys(this.validators).forEach((validatorGroup) => {
+                validators.forEach((validator) => {
+                    if (this.validators[validatorGroup].includes(validator)) {
+                        this.validators[validatorGroup].splice(this.validators[validatorGroup].indexOf(validator), 1);
+                    }
+                });
+            });
+        }
         return this;
     }
 }

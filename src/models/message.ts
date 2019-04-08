@@ -4,7 +4,7 @@ import { Payload } from './payload';
 
 // class is used to store a sent message. This message can be logged.
 export class Message {
-  public parent: Payload | void // stores parent for reference
+  protected parent: Payload | void // stores parent for reference
   protected timestamp: string // stores iso timestamp upon creation
   protected value: Data | Data[] | Err // stores message data
 
@@ -37,7 +37,7 @@ export class Message {
     // deconstruct
     const { parent, timestamp, value } = this;
 
-    const cid = parent ? parent.cid : null;
+    const cid = parent ? parent.cid : '';
     const success = parent ? parent.success : false;
 
     // return formatted object
@@ -61,18 +61,19 @@ export class Message {
     const {
       sid,
       cid,
+      state,
       success,
       method,
     } = parent;
 
     // generate string values
-    const sError = (!success) ? 'ERROR - ' : '';
+    const sError = (!success) ? 'ERROR' : 'SUCCESS';
     const sTimestamp = `${timestamp} `;
-    const sId = `[${method.toUpperCase()}/${sid}/${cid}] `;
+    const sId = `[${sError}/${state.toUpperCase()}/${method.toUpperCase()}/${sid}/${cid}] `;
     const sValue = JSON.stringify(value);
 
     // write to stdout
-    process.stdout.write(`${sError}${sTimestamp}${sId}${sValue}\n`);
+    process.stdout.write(`${sTimestamp}${sId}${sValue}\n`);
     return this;
   }
 }

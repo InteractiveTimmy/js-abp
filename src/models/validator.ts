@@ -8,12 +8,12 @@ export class Validator {
   }
 
   // validates if value meets validator specification
-  public validate(value: string): boolean {
+  public validate(value?: string): boolean {
     // deconstruct
     const { truthy } = this;
 
     // validate if exists
     if (value) { return truthy; }
-    return false;
+    return !truthy;
   }
 }

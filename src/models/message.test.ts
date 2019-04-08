@@ -1,68 +1,40 @@
 // dependencies
 import { Message } from './message';
-import { Payload } from './payload';
+import { isOutput } from './types';
 
 // unit tests
 test('should return self', () => {
-  const myMessage = new Message();
-
-  expect(myMessage).toBeInstanceOf(Message);
-  expect(myMessage.log()).toBeInstanceOf(Message);
-  expect(myMessage.setParent()).toBeInstanceOf(Message);
+  const message = new Message();
+  expect(message).toBeInstanceOf(Message);
 });
 
-test('should have properties', () => {
-  const myMessage = new Message();
-
-  expect(myMessage).toHaveProperty('timestamp');
-  expect(myMessage).toHaveProperty('value');
+test('should have property get', () => {
+  const message = new Message();
+  expect(message).toHaveProperty('get');
 });
 
-test('should return Data interface', () => {
-  const myOutput = new Message().get();
-
-  expect(myOutput).toHaveProperty('cid');
-  expect(myOutput).toHaveProperty('timestamp');
-  expect(myOutput).toHaveProperty('data');
-  expect(myOutput).toHaveProperty('success');
+test('should have property set', () => {
+  const message = new Message();
+  expect(message).toHaveProperty('set');
 });
 
-// integration tests
-test('should set parent', () => {
-  const myPayload = new Payload('yes', 'create', 'test', {});
-  const myMessage = myPayload.output.setParent(myPayload);
-
-  expect(myMessage.parent).toBe(myPayload);
+test('should have property log', () => {
+  const message = new Message();
+  expect(message).toHaveProperty('log');
 });
 
-test('should get data from parent', () => {
-  const myPayload = new Payload('yes', 'create', 'test', {});
-  const myOutput = myPayload.output.get();
+test('should return data output interface', () => {
+  const output = new Message().get();
 
-  expect(typeof myOutput.cid).toBe('string');
-  expect(typeof myOutput.timestamp).toBe('string');
-  expect(typeof myOutput.data).toBe('object');
-  expect(typeof myOutput.success).toBe('boolean');
+  expect(isOutput(output)).toBe(true);
 });
 
-test('should return object', () => {
-  const myPayload = new Payload('yes', 'create', 'test', {});
+test('should return matching data output after input', () => {
+  const data = { valueA: 'a', valueB: 'b', valueC: 'c' };
+  const message = new Message().set(data);
 
-  myPayload.output.set({ valueA: '1', valueB: '2' });
+  const output = message.get();
 
-  const myOutput = myPayload.output.get();
-
-  expect(typeof myOutput.data).toBe('object');
-  expect(myOutput.data).not.toHaveProperty('length');
-});
-
-test('should return array', () => {
-  const myPayload = new Payload('yes', 'create', 'test', {});
-
-  myPayload.output.set([{ valueA: '1', valueB: '2' }, { valueA: '1', valueB: '2' }]);
-
-  const myOutput = myPayload.output.get();
-
-  expect(typeof myOutput.data).toBe('object');
-  expect(myOutput.data).toHaveProperty('length');
+  expect(isOutput(output)).toBe(true);
+  expect(output.data).toBe(data);
 });

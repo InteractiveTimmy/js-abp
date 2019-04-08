@@ -4,7 +4,7 @@ import { Validator } from './validator';
 // class is used as primary entity for generating data on all middleware
 export class Structure {
   public dataset: string // stores the dataset being used
-  public validators: { [index: string]: Validator[] } // stores keyed validators
+  public validators: { [index: string]: Validator[] } = {} // stores keyed validators
 
   public constructor(dataset: string, ...keys: string[]) {
     // set constructor params

@@ -1,0 +1,41 @@
+{
+  "name": "js-abp",
+  "version": "0.1.0",
+  "description": "JavaScript API Boiler Plate",
+  "main": "dist/js-abp.js",
+  "types": "dist/js-abp.d.ts",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node ./example/index.js",
+    "typescript": "tsc",
+    "rollup": "rollup -c rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InteractiveTimmy/js-abp.git"
+  },
+  "author": "InteractiveTimmy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/InteractiveTimmy/js-abp/issues"
+  },
+  "homepage": "https://github.com/InteractiveTimmy/js-abp#readme",
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "jest": "^24.7.1",
+    "rollup": "^1.9.3",
+    "typescript": "^3.4.3"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
